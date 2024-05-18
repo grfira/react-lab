@@ -6,6 +6,7 @@ function App() {
     // let email = 'login@student.agh.edu.pl';
     //const [a,b,c]= [1,2,3];
     const [email, setEmail] = useState('fracz@agh.edu.pl');
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
 
     function handleChange(event) {
@@ -13,24 +14,33 @@ function App() {
         //console.log(event.target.value);
     }
 
-    let header2 = <h3>MAsz krotki adres</h3>
-    if (email.length < 6) {
-        header2 = <h3> Msz krótki adres!"</h3>
+    function sendAlert() {
+        alert(email);
+    }
+
+    let alertMessage = email;
+
+
+    let content;
+    if (isAuthenticated) {
+        content = <div><h2>Twój e-mail to {email}</h2>
+            <button onClick={()=>setIsAuthenticated(false)}> Wyloguj sie</button>
+    </div>
     } else {
-        if (email.length > 20) {
-            header2 = <h3> "Masz długi adres!"</h3>
-        } else header2 = <h3> "W sam raz"</h3>
+        content = <div><input type="text" onChange={handleChange}/>
+            <button onClick={()=>setIsAuthenticated(true)}> Zaloguj sie</button>
+        </div>
     }
 
 
     return (
         <div>
             <h1>System do zapisów na zajęcia</h1>
-            <h2>Twój e-mail to {email.toLocaleUpperCase()}</h2>
-            {header2}
-            <input type="text" onChange={handleChange}/>
+            {content}
 
         </div>
+
+
     );
 }
 
