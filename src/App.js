@@ -2,43 +2,35 @@ import logo from './logo.svg';
 import './App.css';
 import {useState} from "react";
 import "milligram";
+import LoginForm from "./LoginForm";
 
 function App() {
     // let email = 'login@student.agh.edu.pl';
     //const [a,b,c]= [1,2,3];
-    const [email, setEmail] = useState('fracz@agh.edu.pl');
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    // const [email, setEmail] = useState('fracz@agh.edu.pl');
+    // const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [authenticatedUsername, setAuthenticatedUsername] = useState('');
 
 
-    function handleChange(event) {
-        setEmail(event.target.value)
-        //console.log(event.target.value);
+
+    function logout() {
+        setAuthenticatedUsername('');
     }
-
-    function sendAlert() {
-        alert(email);
-    }
-
-    let alertMessage = email;
 
 
     let content;
-    if (isAuthenticated) {
-        content = <div><h2>Twój e-mail to {email}</h2>
-            <button onClick={()=>setIsAuthenticated(false)}> Wyloguj sie</button>
-    </div>
-    } else {
-        content = <div><input type="text" onChange={handleChange}/>
-            <button onClick={()=>setIsAuthenticated(true)}> Zaloguj sie</button>
+    if (authenticatedUsername) {
+        content = <div>
+            <h2>Twój e-mail to {authenticatedUsername}</h2>
+            <button onClick={logout}> Wyloguj sie</button>
         </div>
+    } else {
+        content = <LoginForm onLogin={(email) => setAuthenticatedUsername(email)}/>
     }
-
-
     return (
         <div>
             <h1>System do zapisów na zajęcia</h1>
             {content}
-
         </div>
 
 
